@@ -1,5 +1,7 @@
 package pl.pjatk.jazs21164nbp.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +22,31 @@ public class StatisticsController {
         this.archiveService = archiveService;
     }
 
+    @ApiOperation(value = "Get average exchange rate",
+            response = Archive.class,
+            notes = "This method will return average exchange rate in date range")
     @GetMapping("calculate/{currency}")
-    ResponseEntity<Archive> getAverage(@PathVariable String currency, @RequestParam String startDate, @RequestParam String endDate) {
+    ResponseEntity<Archive> getAverage(
+            @ApiParam(
+                    name = "currency",
+                    type = "String",
+                    value = "some currency code",
+                    example = "EUR",
+                    required = true,
+                    defaultValue = "GBP")
+            @PathVariable String currency,
+            @ApiParam(
+                    name = "startDate",
+                    type = "date",
+                    value = "2012-01-31",
+                    example = "2012-01-31")
+            @RequestParam String startDate,
+            @ApiParam(
+                    name = "endDate",
+                    type = "date",
+                    value = "2012-01-31",
+                    example = "2012-01-31")
+            @RequestParam String endDate) {
         Archive statistics = statisticsService.calculateStatisticsInRange(startDate, endDate, currency);
         return ResponseEntity.ok(archiveService.addArchive(statistics));
     }
