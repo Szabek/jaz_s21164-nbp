@@ -38,13 +38,13 @@ public class StatisticsController {
             @ApiParam(
                     name = "startDate",
                     type = "date",
-                    value = "2012-01-31",
+                    value = "some date",
                     example = "2012-01-31")
             @RequestParam String startDate,
             @ApiParam(
                     name = "endDate",
                     type = "date",
-                    value = "2012-01-31",
+                    value = "some date",
                     example = "2012-01-31")
             @RequestParam String endDate) {
         Archive statistics = statisticsService.calculateStatisticsInRange(startDate, endDate, currency);

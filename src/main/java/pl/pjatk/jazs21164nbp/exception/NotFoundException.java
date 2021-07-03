@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class NotFoundException extends RuntimeException{
+public class NotFoundException extends RuntimeException {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> handlerRuntimeException(NotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);

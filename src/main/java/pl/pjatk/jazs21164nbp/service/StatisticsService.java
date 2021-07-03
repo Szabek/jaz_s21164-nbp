@@ -11,7 +11,6 @@ import pl.pjatk.jazs21164nbp.model.NbpRoot;
 import pl.pjatk.jazs21164nbp.model.Rate;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,13 +31,13 @@ public class StatisticsService {
         return new Archive(currency, startDate, endDate, averageExchangeRate, LocalDateTime.now());
     }
 
-    public NbpRoot getStatistics(String  startDate, String endDate, String currency) {
-       try {
-           return restTemplate.
-                   getForObject(BASE_URL + currency + "/" + startDate + "/" + endDate + "/?format=json", NbpRoot.class);
-       } catch (ResourceAccessException e) {
-           throw new GatewayTimeoutException();
-       }
+    public NbpRoot getStatistics(String startDate, String endDate, String currency) {
+        try {
+            return restTemplate.
+                    getForObject(BASE_URL + currency + "/" + startDate + "/" + endDate + "/?format=json", NbpRoot.class);
+        } catch (ResourceAccessException e) {
+            throw new GatewayTimeoutException();
+        }
     }
 
     public double calculateAverage(List<Rate> rateList) {
